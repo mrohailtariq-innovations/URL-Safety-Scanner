@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Security Scanner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ========================================
+         STEP 1: HTML - THE STRUCTURE
+         ======================================== -->
+    
+    <div class="main-container">
+        <!-- Scanner Input Card -->
+        <div class="scanner-card">
+            <div class="scanner-header">
+                <div>
+                    <h1 class="scanner-title">🔍 URL Security Scanner</h1>
+                    <p class="scanner-subtitle">Quick scan (uses VirusTotal when configured)</p>
+                </div>
+                <div class="header-actions">
+                    <button id="reanalyzeButton" class="small-btn">Reanalyze</button>
+                    <button id="searchButton" class="small-btn">Search</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <input 
+                    type="url" 
+                    id="urlInput" 
+                    class="url-input" 
+                    placeholder="Enter URL to scan (e.g., https://example.com)"
+                    aria-label="URL to scan"
+                >
+            </div>
+
+            <div class="controls-row">
+                <button id="scanButton" class="scan-button">Scan URL</button>
+                <button id="simulateButton" class="secondary-button">Simulate</button>
+            </div>
+
+            <!-- Loading Spinner (Hidden by default) -->
+            <div id="loadingSpinner" class="loading-spinner"></div>
+
+            <!-- Error Message (Hidden by default) -->
+            <div id="errorMessage" class="error-message"></div>
+        </div>
+
+        <!-- Results Container (Hidden by default) -->
+        <div id="resultContainer" class="result-container">
+            <div class="result-top">
+                <div class="result-left">
+                    <div id="donutChart" class="donut-chart" style="--safe-angle: 270deg;">
+                        <div id="chartLabel" class="chart-label">75%</div>
+                    </div>
+                </div>
+                <div class="result-right">
+                    <div class="url-row">
+                        <div class="result-url" id="resultUrl">https://example.com</div>
+                        <div id="statusBadge" class="status-badge safe">SAFE</div>
+                    </div>
+
+                    <div class="meta-row">
+                        <div class="meta-item"><strong>Status:</strong> <span id="metaStatus">200</span></div>
+                        <div class="meta-item"><strong>Type:</strong> <span id="metaType">text/html</span></div>
+                        <div class="meta-item"><strong>Last Analysis:</strong> <span id="metaLast">2 months ago</span></div>
+                    </div>
+
+                    <div id="tagsRow" class="tags-row">
+                        <!-- tags inserted by JS -->
+                    </div>
+
+                    <div class="tab-bar">
+                        <button class="tab active" data-tab="detection">DETECTION</button>
+                        <button class="tab" data-tab="details">DETAILS</button>
+                        <button class="tab" data-tab="community">COMMUNITY</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tabContent">
+                <div id="detection" class="tab-panel active">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">Clean</div>
+                            <div id="cleanCount" class="stat-value" style="color: var(--color-safe);">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Malicious</div>
+                            <div id="maliciousCount" class="stat-value" style="color: var(--color-danger);">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Suspicious</div>
+                            <div id="suspiciousCount" class="stat-value" style="color: var(--color-warning);">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Total Scans</div>
+                            <div id="totalScans" class="stat-value">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="details" class="tab-panel">
+                    <p id="detailText" class="detail-text">No details available.</p>
+                </div>
+                <div id="community" class="tab-panel">
+                    <p class="detail-text">Community comments not available.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
