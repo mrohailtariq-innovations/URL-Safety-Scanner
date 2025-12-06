@@ -1,3 +1,4 @@
+
 /* ========================================
    SCRIPT.JS - URL SECURITY SCANNER FUNCTIONALITY
    ======================================== */
@@ -7,7 +8,7 @@
 // Replace 'YOUR_VIRUSTOTAL_API_KEY_HERE' with your real VirusTotal API key
 // apiUrl - The web address of VirusTotal's scanning service
 const CONFIG = {
-    apiKey: 'YOUR_VIRUSTOTAL_API_KEY_HERE',
+    apiKey: 'YOUR_VIRUSTOTAL_API_KEY_HERE' with your real VirusTotal API key',
     // Put your API key here to enable real scanning
     apiUrl: 'https://www.virustotal.com/api/v3/urls'
     // This is the API endpoint where we send URLs for scanning
@@ -207,15 +208,22 @@ async function handleScan() {
 
     try {
         // STEP 1: Send the URL to VirusTotal for scanning
-        const scanData = await submitUrlForScan(url);
+        // We still send the POST so VirusTotal has the URL, but some API setups
+        // return different ids. To reliably fetch results we will use the
+        // base64-encoded URL id which VirusTotal accepts for GET /urls/{id}.
+        await submitUrlForScan(url);
 
-        // STEP 2: Wait 2 seconds for VirusTotal to process the scan
+        // STEP 2: Wait a short time for VirusTotal to process the scan
         await sleep(2000);
 
-        // STEP 3: Get the scan results back from VirusTotal
-        const results = await getScanResults(scanData.data.id);
+        // STEP 3: Compute the URL id the VirusTotal API expects for GET requests
+        // This is the Base64 encoding of the URL without padding characters.
+        const urlId = btoa(url).replace(/=/g, '');
 
-        // STEP 4: Show the results on the screen
+        // STEP 4: Try to get the scan results using the encoded URL id
+        const results = await getScanResults(urlId);
+
+        // STEP 5: Show the results on the screen
         displayResults(url, results);
     } catch (error) {
         // If something goes wrong, show the error to the user
