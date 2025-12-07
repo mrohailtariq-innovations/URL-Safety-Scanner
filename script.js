@@ -8,7 +8,7 @@
 // Replace 'YOUR_VIRUSTOTAL_API_KEY_HERE' with your real VirusTotal API key
 // apiUrl - The web address of VirusTotal's scanning service
 const CONFIG = {
-    apiKey: 'YOUR_VIRUSTOTAL_API_KEY_HERE' with your real VirusTotal API key',
+    apiKey: 'c300691ceb87be8d5c37f3af35709d19f39014ffeff2747755632948843714d0',
     // Put your API key here to enable real scanning
     apiUrl: 'https://www.virustotal.com/api/v3/urls'
     // This is the API endpoint where we send URLs for scanning
@@ -809,3 +809,4 @@ function sleep(ms) {
     // Return a new promise that resolves after ms milliseconds
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
